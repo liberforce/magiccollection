@@ -20,23 +20,24 @@
 
 # AdvancedSearch class for Magic Collection
 
-from gi.repository import Gtk, Gio, GdkPixbuf, GLib, Pango
-import sys
 import os
+import sys
 import threading
 import time
+
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
 
 # imports def.py
 import defs
 
-# imports objects
-import objects.mc
-
 # imports functions
 import functions.cardviewer
+import functions.collection
 import functions.config
 import functions.db
-import functions.collection
+
+# imports objects
+import objects.mc
 
 
 class AdvancedSearch:

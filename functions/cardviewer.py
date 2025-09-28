@@ -20,23 +20,24 @@
 
 # Functions for the card viewer
 
-from gi.repository import Gtk, Gio, GdkPixbuf, Pango, GObject, GLib, Gdk
-import cairo
 import os
 import random
 import re
 import threading
 import time
 
+import cairo
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango
+
 # imports def.py
 import defs
-
-# imports objects
-import objects.mc
+import functions.prices
 
 # imports functions
 import functions.various
-import functions.prices
+
+# imports objects
+import objects.mc
 
 
 def gen_card_viewer(cardid, box_card_viewer, object_origin, simple_search):

@@ -20,24 +20,25 @@
 
 # Main Items classes for Magic Collection
 
-from gi.repository import Gtk, Gio, GdkPixbuf, GLib, Gdk
-import sys
 import os
+import sys
 import threading
+
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
 
 # imports def.py
 import defs
+import functions.config
+
+# imports functions
+import functions.db
+import functions.importexport
+import functions.various
+import objects.AdvancedSearch
 
 # imports objects
 import objects.Collection
 import objects.Decks
-import objects.AdvancedSearch
-
-# imports functions
-import functions.db
-import functions.various
-import functions.config
-import functions.importexport
 
 
 class MagicCollection(Gtk.Application):

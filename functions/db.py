@@ -20,18 +20,21 @@
 
 # Some functions for dealing with the database
 
-from gi.repository import Gtk, Gio, GdkPixbuf, GLib
 import os
-import urllib.request, urllib.parse, urllib.error
-from socket import timeout
-from distutils.version import StrictVersion
 import sqlite3
 import tarfile
+import urllib.error
+import urllib.parse
+import urllib.request
+from distutils.version import StrictVersion
+from socket import timeout
+
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk
 
 # imports def.py
 import defs
-import functions.various
 import functions.importexport
+import functions.various
 
 
 def connect_db():

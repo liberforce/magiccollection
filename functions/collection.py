@@ -20,18 +20,19 @@
 
 # Some functions for dealing with the collection
 
-from gi.repository import Gtk, Gio, GdkPixbuf, Pango, GLib, Gdk
+import datetime
 import os
+import shutil
 import sqlite3
 import threading
 import time
-import datetime
-import shutil
+
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk, Pango
 
 # imports def.py
 import defs
-import functions.various
 import functions.db
+import functions.various
 
 
 def read_coll(box, coll_object):

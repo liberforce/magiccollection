@@ -20,11 +20,12 @@
 
 # Read & write the configuration file, generate the config window
 
-from gi.repository import Gtk, Gio, GLib
 import os
-import threading
 import shutil
+import threading
 import time
+
+from gi.repository import Gio, GLib, Gtk
 
 # import global values
 import defs

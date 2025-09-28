@@ -20,20 +20,21 @@
 
 # Functions related to import/export the collection and the decks
 
-from gi.repository import Gtk, GLib, Pango
 import os
-from datetime import date
 import shutil
 import sys
+from datetime import date
+
+from gi.repository import GLib, Gtk, Pango
 
 # imports def.py
 import defs
+import functions.collection
+import functions.db
+import functions.decks
 
 # imports functions
 import functions.various
-import functions.collection
-import functions.decks
-import functions.db
 
 
 def export_collection_text():

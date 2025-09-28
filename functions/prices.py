@@ -21,13 +21,16 @@
 # Some functions for dealing with the prices of the cards
 
 import os
-import urllib.request, urllib.parse, urllib.error
-from socket import timeout
-import tarfile
-from distutils.version import StrictVersion
 import sqlite3
-from gi.repository import Gtk, GLib
+import tarfile
 import threading
+import urllib.error
+import urllib.parse
+import urllib.request
+from distutils.version import StrictVersion
+from socket import timeout
+
+from gi.repository import GLib, Gtk
 
 import defs
 import functions.various

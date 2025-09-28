@@ -7,3 +7,7 @@ requires-python = ">=3.4"
 dependencies = [
     "pygobject<3.51",
 ]
+
+[tool.isort]
+profile = "black"
+line_length = 88

@@ -20,13 +20,13 @@
 
 # Some functions for dealing with the decks
 
-from gi.repository import Gtk, Gio, Pango, GdkPixbuf, GLib
 import threading
 import time
 
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
+
 # import global values
 import defs
-
 import functions.collection
 import functions.db
 

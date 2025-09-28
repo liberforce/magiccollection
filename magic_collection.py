@@ -20,15 +20,16 @@
 
 # Launch script for Magic Collection
 
-import sys
 import os
+import sys
+
 import gi
 
 gi.require_version("Gtk", "3.0")
 
-import objects.mc
-import functions.various
 import defs
+import functions.various
+import objects.mc
 
 os.chdir(defs.HOME)
 functions.various.check_folders_config()

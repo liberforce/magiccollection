@@ -20,16 +20,19 @@
 
 # Various functions
 
-from gi.repository import Gtk, Gio, GdkPixbuf, Pango, GLib
-from math import pi
 import os
-import urllib.request, urllib.parse, urllib.error
 import socket
-from socket import timeout
-import webbrowser
-import time
-import tarfile
 import sys
+import tarfile
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+import webbrowser
+from math import pi
+from socket import timeout
+
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
 
 # imports def.py
 import defs

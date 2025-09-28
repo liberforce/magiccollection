@@ -20,15 +20,15 @@
 
 # This file defines global variables for Magic Collection
 
-from gi.repository import Gtk, Gdk, GdkPixbuf, GLib
-import platform
-import os
 import locale
+import os
+import platform
+
+from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
 
 # translations - each translation must be loaded here
 import translations.en
 import translations.fr
-
 
 PATH_MC = os.path.dirname(os.path.abspath(__file__))
 
