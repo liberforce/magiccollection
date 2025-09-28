@@ -1,0 +1,9 @@
+[project]
+name = "magiccollection"
+version = "0.8.118"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.4"
+dependencies = [
+    "pygobject<3.51",
+]
