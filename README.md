@@ -1,12 +1,12 @@
-#About
+# About
 
 Magic Collection is a small program to manage your collection of Magic: the Gathering cards & decks.
 
-#Licenses
+# Licenses
 
 GNU/GPL v3
 
-#Dependencies
+# Dependencies
 
 * Python >= 3.4
 * GTK+ >= 3.18
