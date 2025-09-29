@@ -60,7 +60,7 @@ class MagicCollection(Gtk.Application):
             os.environ["GTK_OVERLAY_SCROLLING"] = "0"
 
     def do_activate(self):
-        if self.window == None:
+        if self.window is None:
             self.window = MC_Window(self)
             self.window.show_all()
 
@@ -76,7 +76,7 @@ class MagicCollection(Gtk.Application):
         self.window.present()
 
     def load_mc(self):
-        if defs.DB_VERSION != None:
+        if defs.DB_VERSION is not None:
             functions.various.gen_dict_editions()
             # checks for old format
             if functions.importexport.test_oldformat():
@@ -178,7 +178,7 @@ class MagicCollection(Gtk.Application):
         GLib.idle_add(functions.various.show_shortcuts_window, self)
 
     def about_cb(self, action, parameters, app):
-        if self.aboutwindow == None:
+        if self.aboutwindow is None:
             aboutdialog = Gtk.AboutDialog("")
             aboutdialog.set_transient_for(app.window)
             aboutdialog.set_title(
@@ -186,7 +186,7 @@ class MagicCollection(Gtk.Application):
             )
             aboutdialog.set_program_name(defs.STRINGS["app_name"])
             aboutdialog.set_icon_name("magic_collection")
-            if defs.DB_VERSION != None:
+            if defs.DB_VERSION is not None:
                 aboutdialog.set_version(
                     defs.VERSION
                     + " - "
@@ -400,7 +400,7 @@ class MC_Window(Gtk.ApplicationWindow):
             defs.SIMPLY_SEARCH_ENTRY_HAD_FOCUS = False
 
     def focus_release_search_entry(self, entry, eventbutton):
-        if entry.get_text() != "" and defs.SIMPLY_SEARCH_ENTRY_HAD_FOCUS == False:
+        if entry.get_text() != "" and not defs.SIMPLY_SEARCH_ENTRY_HAD_FOCUS:
             entry.select_region(0, -1)
 
     def update_icons_search_entry(self, entry):
@@ -409,7 +409,7 @@ class MC_Window(Gtk.ApplicationWindow):
             entry.set_icon_sensitive(Gtk.EntryIconPosition.PRIMARY, False)
         else:
             icon_clear = Gio.ThemedIcon(name="edit-clear-symbolic")
-            if entry.get_icon_gicon(Gtk.EntryIconPosition.SECONDARY) == None:
+            if entry.get_icon_gicon(Gtk.EntryIconPosition.SECONDARY) is None:
                 entry.set_icon_from_gicon(Gtk.EntryIconPosition.SECONDARY, icon_clear)
             entry.set_icon_sensitive(Gtk.EntryIconPosition.PRIMARY, True)
 
@@ -451,7 +451,7 @@ class MC_Window(Gtk.ApplicationWindow):
                 request = functions.db.prepare_request(
                     [[search_entry, defs.STRINGS["name_ad"]]], "db"
                 )[0]
-                if request != None:
+                if request is not None:
                     spinner = Gtk.Spinner()
                     spinner.show()
                     self.headerbar.pack_start(spinner)

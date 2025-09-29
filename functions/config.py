@@ -202,7 +202,7 @@ def entry_dv_lang_changed(entry):
         def update_dvlang(text):
             change_config("default_lang", text)
 
-        if defs.CURRENT_SAVE_DV_LANG == None:
+        if defs.CURRENT_SAVE_DV_LANG is None:
             # we are the first thread, we need to note this
             defs.CURRENT_SAVE_DV_LANG = 1
         else:
@@ -236,13 +236,13 @@ def entry_dv_lang_changed(entry):
 def show_pref_dialog():
     """Generates and displays the configuration window."""
 
-    if defs.PREF_WINDOW_OPEN == False:
+    if not defs.PREF_WINDOW_OPEN:
         defs.PREF_WINDOW_OPEN = True
 
         pref_dialog = Gtk.Dialog()
         pref_dialog.set_title(defs.STRINGS["preferences_of_mc"])
         pref_dialog.set_icon_name("magic_collection")
-        if defs.MAINWINDOW != None:
+        if defs.MAINWINDOW is not None:
             pref_dialog.set_transient_for(defs.MAINWINDOW)
             pref_dialog.set_modal(True)
 
@@ -681,14 +681,14 @@ def gen_pic_cards_downloaded_content(box_pic_cards_downloaded_content):
 
         def select_changed(selection, liststore, del_pics_ed_button):
             model, treeiter = selection.get_selected()
-            if treeiter == None:
+            if treeiter is None:
                 del_pics_ed_button.set_sensitive(False)
             else:
                 del_pics_ed_button.set_sensitive(True)
 
         def del_pics_ed_button_clicked(button, selection):
             model, treeiter = selection.get_selected()
-            if treeiter != None:
+            if treeiter is not None:
                 try:
                     shutil.rmtree(os.path.join(defs.CACHEMCPIC, model[treeiter][0]))
                 except:
@@ -780,7 +780,7 @@ def gen_prices_box_content(box_prices, dict_config):
     for widget in box_prices.get_children():
         box_prices.remove(widget)
     prices_here = functions.prices.check_prices_presence()
-    if prices_here == False:
+    if not prices_here:
         download_prices_button = Gtk.Button()
         box_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
         box_button.set_halign(Gtk.Align.CENTER)

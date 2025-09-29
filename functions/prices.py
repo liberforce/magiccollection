@@ -94,7 +94,7 @@ def check_prices(orig):
 
     """
 
-    if os.path.isfile(os.path.join(defs.CACHEMCPR, "dateprices")) == False:
+    if not os.path.isfile(os.path.join(defs.CACHEMCPR, "dateprices")):
         download_prices(orig)
     else:
         fileprices = open(
@@ -103,10 +103,9 @@ def check_prices(orig):
         date_prices = fileprices.read(8)
         fileprices.close()
         if (
-            os.path.isfile(
+            not os.path.isfile(
                 os.path.join(defs.CACHEMCPR, "prices_" + date_prices + ".sqlite")
             )
-            == False
         ):
             download_prices(orig)
         else:
@@ -131,7 +130,7 @@ def download_prices(orig):
                 + "</big></b>",
             )
 
-        if os.path.isfile(os.path.join(defs.CACHEMCPR, "dateprices_newtmp")) == False:
+        if not os.path.isfile(os.path.join(defs.CACHEMCPR, "dateprices_newtmp")):
             try:
                 urllib.request.urlretrieve(
                     defs.SITEMC + "files/dateprices",
@@ -363,11 +362,11 @@ def get_price(ids_card_list):
         pmid = data_prices[2].replace(",", "")
         pmin = data_prices[3].replace(",", "")
 
-        if pmid != "" and pmid != None:
+        if pmid != "" and pmid is not None:
             price = float(pmid)
-        elif pmin != "" and pmin != None:
+        elif pmin != "" and pmin is not None:
             price = float(pmid)
-        elif phigh != "" and phigh != None:
+        elif phigh != "" and phigh is not None:
             price = float(phigh)
         else:
             price = ""
@@ -403,7 +402,7 @@ def estimate_ids_list(list_ids_db_to_estimate, dict_coll_to_estimate):
 def get_data_for_estimate(ids_db_list, deckname):
     # we get data in the collection for this list
     conn, c = functions.collection.connect_db()
-    if deckname == None:
+    if deckname is None:
         c.execute(
             """SELECT id_coll, id_card FROM collection WHERE id_card IN ("""
             + ids_db_list
@@ -569,7 +568,7 @@ def show_estimate_dialog(orig, ids_db_list, deckname):
         buttons=(Gtk.STOCK_OK, Gtk.ResponseType.OK),
     )
     est_dialog.set_default_size(350, 150)
-    if defs.MAINWINDOW != None:
+    if defs.MAINWINDOW is not None:
         est_dialog.set_transient_for(defs.MAINWINDOW)
         est_dialog.set_modal(True)
 

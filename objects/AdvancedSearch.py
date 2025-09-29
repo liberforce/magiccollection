@@ -320,7 +320,7 @@ class AdvancedSearch:
     def update_current_store_bold(self, cards_data_for_update_store_as):
         """Updates the mainstore about cards in the collection."""
 
-        if self.mainstore != None:
+        if self.mainstore is not None:
             i = 0
             for row in self.mainstore:
                 for card in cards_data_for_update_store_as:
@@ -442,11 +442,11 @@ class AdvancedSearch:
             else:
                 store_results.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
-            if wait_button != None:
+            if wait_button is not None:
                 wait_button.destroy()
 
         def _no_result(AS_object, wait_button):
-            if wait_button != None:
+            if wait_button is not None:
                 wait_button.destroy()
 
             AS_object.label_nb_cards.set_text("")
@@ -632,9 +632,9 @@ class AdvancedSearch:
     ):
         """Prepares the request to the database."""
 
-        if defs.AS_LOCK == False:
+        if not defs.AS_LOCK:
             request = functions.db.prepare_request(search_widgets_list, "db")[0]
-            if request != None:
+            if request is not None:
                 select.unselect_all()
                 functions.various.lock_db(None, True)
                 GLib.idle_add(
@@ -685,9 +685,9 @@ class AdvancedSearch:
     ):
         """Displays the cards of the selected edition."""
 
-        if defs.AS_LOCK == False:
+        if not defs.AS_LOCK:
             model, treeiter = selection.get_selected()
-            if treeiter != None:
+            if treeiter is not None:
                 button_show_details.set_sensitive(False)
                 functions.various.lock_db(None, True)
                 ed_code = model[treeiter][1]

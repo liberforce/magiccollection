@@ -635,8 +635,6 @@ def prepare_request(search_widgets_list, type_request):
                     else:
                         nb_args = 0
                         list_text_to_find = py_lara(text).strip().split(" ")
-                        tmp_request_lang = []
-                        request_name = ""
 
                         # très précis mais LENT
                         '''#for lang in ["name", "name_chinesetrad", "name_chinesesimp", "name_french", "name_german", "name_italian", "name_japanese", "name_korean", "name_portuguesebrazil", "name_portuguese", "name_russian", "name_spanish"]:
@@ -868,7 +866,7 @@ def prepare_request(search_widgets_list, type_request):
                         len(text) == 10
                         and text[4] == "-"
                         and text[7] == "-"
-                        and text_to_find.isnumeric() == True
+                        and text_to_find.isnumeric()
                     ):
                         tooltip_text = entry.get_icon_tooltip_text(
                             Gtk.EntryIconPosition.PRIMARY
@@ -963,7 +961,7 @@ def prepare_request(search_widgets_list, type_request):
 
     if go == 1:
         if (len(where_requests) > 0) or (
-            len(where_requests) == 0 and quantity_card_req != None
+            len(where_requests) == 0 and quantity_card_req is not None
         ):
             if len(where_requests) > 0:
                 i = 0
@@ -986,7 +984,7 @@ def prepare_request(search_widgets_list, type_request):
 def check_db():
     """Function which checks if the db is here, up to date, and updates it if not"""
 
-    if os.path.isfile(os.path.join(defs.CACHEMC, "datedb")) == False:
+    if not os.path.isfile(os.path.join(defs.CACHEMC, "datedb")):
         download_db()
     else:
         fichierdatedb = open(
@@ -995,10 +993,9 @@ def check_db():
         datebddcartes = fichierdatedb.read(8)
         fichierdatedb.close()
         if (
-            os.path.isfile(
+            not os.path.isfile(
                 os.path.join(defs.CACHEMC, "dbmc_" + datebddcartes + ".sqlite")
             )
-            == False
         ):
             download_db()
         else:
@@ -1055,7 +1052,7 @@ def check_db2():
         defs.DB_VERSION = None
 
     # when downloading the new database is over, we download symbols editions
-    if defs.DB_VERSION != None:
+    if defs.DB_VERSION is not None:
         functions.various.download_symbols()
     if functions.importexport.test_oldformat():
         GLib.idle_add(show_loading_oldformat)
@@ -1075,7 +1072,7 @@ def download_db():
             "<b><big>" + defs.STRINGS["downloading_db"] + "</big></b>",
         )
 
-        if os.path.isfile(os.path.join(defs.CACHEMC, "datedb_newtmp")) == False:
+        if not os.path.isfile(os.path.join(defs.CACHEMC, "datedb_newtmp")):
             try:
                 urllib.request.urlretrieve(
                     defs.SITEMC + "files/datedb",

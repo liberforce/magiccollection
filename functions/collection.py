@@ -258,7 +258,7 @@ def read_coll(box, coll_object):
                 tree_coll.set_search_column(1)
             # some work with columns
             columns_to_display = functions.config.read_config("coll_columns").split(";")
-            coll_columns_list = functions.various.gen_treeview_columns(
+            functions.various.gen_treeview_columns(
                 columns_to_display, tree_coll
             )[0]
             if defs.OS == "mac":
@@ -300,7 +300,7 @@ def read_coll(box, coll_object):
                     coll_object.button_estimate, select
                 )
             )
-            if functions.prices.check_prices_presence() == False:
+            if not functions.prices.check_prices_presence():
                 coll_object.button_estimate.set_sensitive(False)
             coll_object.button_delete.set_popover(
                 functions.collection.gen_delete_popover(
@@ -418,7 +418,7 @@ def add_deck_test_avail(selection):
     cards_avail = {}
     nb_avail = 0
     details_store = gen_details_store(selection, defs.MAINWINDOW.collection)
-    if details_store != None:
+    if details_store is not None:
         for card in details_store:
             # id_coll, name, editionln, nameforeign, date, condition, lang, foil, loaned_to, comment, deck, bold, italic, id_db, deck_side
             if card[10] == "" and card[14] == "":
@@ -539,7 +539,7 @@ def prepare_update_details(
                     selection.select_path(row)
                     break
 
-    if defs.CURRENT_SAVEDETAILS_THREAD == None:
+    if defs.CURRENT_SAVEDETAILS_THREAD is None:
         # we are the first thread, we need to note this
         defs.CURRENT_SAVEDETAILS_THREAD = 1
     else:
@@ -1013,7 +1013,7 @@ def gen_quantity_popover(button_change_quantity, selection):
 
     def spinbutton_value_changed(spinbutton, button_ok, current_quantity):
         value = spinbutton.get_value_as_int()
-        if value != current_quantity and defs.COLL_LOCK == False:
+        if value != current_quantity and not defs.COLL_LOCK:
             button_ok.set_sensitive(True)
         else:
             button_ok.set_sensitive(False)
@@ -1028,7 +1028,7 @@ def gen_quantity_popover(button_change_quantity, selection):
         button_ok,
     ):
         value = spinbutton.get_value_as_int()
-        if value != current_quantity and defs.COLL_LOCK == False:
+        if value != current_quantity and not defs.COLL_LOCK:
             button_ok_clicked(
                 button_ok,
                 spinbutton,
@@ -1154,11 +1154,11 @@ def gen_add_deck_popover(button_add_deck, selection):
 
     def select_changed(selection, ok_button, spinbuttons_dict, all_spinbutton_list):
         model, treeiter = selection.get_selected()
-        if treeiter == None:
+        if treeiter is None:
             ok_button.set_sensitive(False)
         else:
             at_least_one_to_add = 0
-            if all_spinbutton_list[0] == None:
+            if all_spinbutton_list[0] is None:
                 for id_db, spinbutton in spinbuttons_dict.items():
                     if spinbutton.get_value_as_int() > 0:
                         at_least_one_to_add += 1
@@ -1195,7 +1195,7 @@ def gen_add_deck_popover(button_add_deck, selection):
 
     def all_spin_value_changed(spinbutton, select_list_decks, ok_button):
         model, treeiter = select_list_decks.get_selected()
-        if treeiter == None:
+        if treeiter is None:
             ok_button.set_sensitive(False)
         else:
             if spinbutton.get_value_as_int() > 0:
@@ -1205,7 +1205,7 @@ def gen_add_deck_popover(button_add_deck, selection):
 
     def spin_value_changed(spinbutton, spinbuttons_dict, select_list_decks, ok_button):
         model, treeiter = select_list_decks.get_selected()
-        if treeiter == None:
+        if treeiter is None:
             ok_button.set_sensitive(False)
         else:
             at_least_one_to_add = 0
@@ -1415,7 +1415,7 @@ def gen_add_deck_popover(button_add_deck, selection):
         all_spinbutton,
     ):
         nb_max_for_all = -1
-        if all_spinbutton != None:
+        if all_spinbutton is not None:
             nb_max_for_all = all_spinbutton.get_value_as_int()
         ids_coll_dict = {}
         for id_db_spin, spinbutton in spinbuttons_dict.items():
@@ -1464,7 +1464,7 @@ def gen_add_deck_details_popover(button_add_deck, selection, details_store):
 
     def select_changed(selection, ok_button):
         model, treeiter = selection.get_selected()
-        if treeiter == None:
+        if treeiter is None:
             ok_button.set_sensitive(False)
         else:
             ok_button.set_sensitive(True)
@@ -1908,7 +1908,7 @@ def gen_details_popover(button_show_details, selection, object_origin):
                 checkbutton_loaned.set_active(False)
                 textview_comment.get_buffer().set_text("", -1)
 
-            if defs.COLL_LOCK == False:
+            if not defs.COLL_LOCK:
                 nb_cards_in_deck = 0
                 for row in pathlist:
                     if model[row][12] == Pango.Style.ITALIC:
@@ -2053,7 +2053,7 @@ def gen_details_popover(button_show_details, selection, object_origin):
         selection,
         details_store,
     ):
-        if widget.get_sensitive() and checkbutton_loaned.get_active() == True:
+        if widget.get_sensitive() and checkbutton_loaned.get_active():
             thread = threading.Thread(
                 target=prepare_update_details,
                 args=(
@@ -2083,7 +2083,7 @@ def gen_details_popover(button_show_details, selection, object_origin):
         details_store,
     ):
         if (
-            widget.get_active() == False
+            not widget.get_active()
             and widget.get_sensitive()
             and entry_loaned.get_text() != ""
         ):
@@ -2106,7 +2106,7 @@ def gen_details_popover(button_show_details, selection, object_origin):
             thread.daemon = True
             thread.start()
         if (
-            widget.get_active() == True
+            widget.get_active()
             and widget.get_sensitive()
             and entry_loaned.get_text() != ""
         ):
@@ -2158,7 +2158,7 @@ def gen_details_popover(button_show_details, selection, object_origin):
 
     def popover_show(popover, details_box):
         details_store = gen_details_store(selection, object_origin)
-        if details_store != None:
+        if details_store is not None:
             for widget in details_box.get_children():
                 details_box.remove(widget)
 
@@ -2470,7 +2470,7 @@ def gen_grid_search_coll(coll_object, searchbar, overlay_coll):
             sensitive = False
         else:
             sensitive = True
-        if defs.AS_LOCK == False and defs.COLL_LOCK == False:
+        if not defs.AS_LOCK and not defs.COLL_LOCK:
             button_search.set_sensitive(sensitive)
         button_reset_search.set_sensitive(sensitive)
 
@@ -2608,7 +2608,7 @@ def gen_grid_search_coll(coll_object, searchbar, overlay_coll):
         )
 
         nb_results = nb_results - nb_verso
-        if quantity_card_req != None:
+        if quantity_card_req is not None:
             nb_results = nb_cards_disp
         if nb_results < 2:
             coll_object.label_nb_card_coll.set_label(
@@ -2623,7 +2623,7 @@ def gen_grid_search_coll(coll_object, searchbar, overlay_coll):
         else:
             coll_object.tree_coll.set_search_column(1)
         coll_object.tree_coll.show()
-        if wait_button != None:
+        if wait_button is not None:
             wait_button.destroy()
 
     def prepare_request(widget, search_widgets_list, overlay_coll):
@@ -2636,11 +2636,11 @@ def gen_grid_search_coll(coll_object, searchbar, overlay_coll):
             wait_button.show_all()
             overlay_coll.add_overlay(wait_button)
 
-        if defs.AS_LOCK == False:
+        if not defs.AS_LOCK:
             request_list = functions.db.prepare_request(search_widgets_list, "coll")
             request = request_list[0]
             quantity_card_req = request_list[1]
-            if request != None:
+            if request is not None:
                 GLib.idle_add(coll_object.tree_coll.hide)
                 wait_button = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
                 GLib.idle_add(prepare_wait_button, wait_button, overlay_coll)
@@ -2694,7 +2694,7 @@ def gen_grid_search_coll(coll_object, searchbar, overlay_coll):
                 tmp_req = tmp_req[:-2]
                 request = request + """ AND cards.id IN (""" + tmp_req + """)"""
 
-                if quantity_card_req != None:
+                if quantity_card_req is not None:
                     request = (
                         request + """ GROUP BY coll.id_card """ + quantity_card_req
                     )
@@ -2970,11 +2970,10 @@ def backup_coll(type_of_backup):
     allfiles = os.listdir(defs.BACKUPMC)
     allbackups = []
     for afile in allfiles:
-        if os.path.isdir(os.path.join(defs.BACKUPMC, afile)) == False:
+        if not os.path.isdir(os.path.join(defs.BACKUPMC, afile)):
             if (
                 afile[:18] == "collection.sqlite-"
                 and functions.various.isSQLite3(os.path.join(defs.BACKUPMC, afile))
-                == True
             ):
                 allbackups.append(afile)
     allbackups = sorted(allbackups)

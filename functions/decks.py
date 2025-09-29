@@ -321,7 +321,7 @@ def prepare_deck_comment_save(textbuffer, decks_object):
         deck_name = model_deck[pathlist_deck][1]
         decks_object.update_deck_comment(deck_name, comment)
 
-    if defs.CURRENT_SAVE_COMMENT_DECK_THREAD == None:
+    if defs.CURRENT_SAVE_COMMENT_DECK_THREAD is None:
         # we are the first thread, we need to note this
         defs.CURRENT_SAVE_COMMENT_DECK_THREAD = 1
     else:
@@ -374,7 +374,7 @@ def gen_deck_content(deck_name, box, decks_object):
     def _proxies_from_deck_to_dict(responses_proxies):
         dict_proxies_in_deck = {}
         nb_proxies = 0
-        if responses_proxies != "" and responses_proxies != None:
+        if responses_proxies != "" and responses_proxies is not None:
             for card_proxy in responses_proxies.split(";;;"):
                 id_card, nb_card = card_proxy.split("ø")
                 bold = 400
@@ -390,7 +390,7 @@ def gen_deck_content(deck_name, box, decks_object):
         for id_ in dict_cards_in_deck.keys():
             if id_ not in complete_list_of_ids:
                 complete_list_of_ids.append(id_)
-        if responses_proxies != None:
+        if responses_proxies is not None:
             if len(responses_proxies) > 0:
                 for id_ in dict_proxies_in_deck.keys():
                     if id_ not in complete_list_of_ids:
@@ -695,7 +695,7 @@ def gen_deck_content(deck_name, box, decks_object):
         tree_deck.set_search_column(1)
     # some work with columns
     columns_to_display = functions.config.read_config("decks_columns").split(";")
-    coll_columns_list = functions.various.gen_treeview_columns(
+    functions.various.gen_treeview_columns(
         columns_to_display, tree_deck
     )[0]
     if defs.OS == "mac":
@@ -800,7 +800,7 @@ def gen_deck_change_quantity_popover(button_change_quantity, selection, decks_ob
 
     def spinbutton_value_changed(spinbutton, button_ok, current_quantity):
         value = spinbutton.get_value_as_int()
-        if value != current_quantity and defs.COLL_LOCK == False:
+        if value != current_quantity and not defs.COLL_LOCK:
             button_ok.set_sensitive(True)
         else:
             button_ok.set_sensitive(False)
@@ -999,7 +999,7 @@ def gen_move_deck_popover(button_move, selection, decks_object):
 
     def select_changed(selection, ok_button):
         model, treeiter = selection.get_selected()
-        if treeiter == None:
+        if treeiter is None:
             ok_button.set_sensitive(False)
         else:
             ok_button.set_sensitive(True)
@@ -1130,7 +1130,7 @@ def gen_edit_comm_name_deck_popover(
             def entry_changed(entry, ok_button, list_decks_names):
                 def real_entry_changed(entry, ok_button, list_decks_names):
                     if (
-                        defs.COLL_LOCK == False
+                        not defs.COLL_LOCK
                         and entry.get_text() != ""
                         and entry.get_text() not in list_decks_names
                     ):
@@ -1204,7 +1204,7 @@ def gen_edit_comm_name_deck_popover(
             scrolledwindow_comm.add(textview_comm)
 
             textbuffer.set_text(response[0], -1)
-            if defs.COLL_LOCK == False:
+            if not defs.COLL_LOCK:
                 textview_comm.set_sensitive(True)
 
             box_comm_comment.pack_start(label_comm, False, True, 0)
@@ -1235,7 +1235,7 @@ def gen_new_deck_popover(button_new_deck, decks_object):
         def entry_changed(entry, ok_button, list_decks_names):
             def real_entry_changed(entry, ok_button, list_decks_names):
                 if (
-                    defs.COLL_LOCK == False
+                    not defs.COLL_LOCK
                     and entry.get_text() != ""
                     and entry.get_text().lower() not in list_decks_names
                 ):
@@ -1249,7 +1249,7 @@ def gen_new_deck_popover(button_new_deck, decks_object):
             entry_name_deck, ok_button, list_decks_names, decks_object, popover
         ):
             if (
-                defs.COLL_LOCK == False
+                not defs.COLL_LOCK
                 and entry_name_deck.get_text() != ""
                 and entry_name_deck.get_text().lower() not in list_decks_names
                 and ok_button.get_sensitive
@@ -1422,7 +1422,7 @@ def update_comment_deck_to_db(decks_object, deck_name, new_comment):
     """Writes the new comment and the new name of the deck to the database and updates the list."""
 
     def update_comment_in_decks_list(deck_name, decks_object):
-        if decks_object != None:
+        if decks_object is not None:
             try:
                 for i, elm in enumerate(decks_object.store_list_decks):
                     if elm[1] == deck_name:

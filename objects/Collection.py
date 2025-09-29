@@ -68,7 +68,7 @@ class Collection:
         self.mainbox.pack_start(separator, False, False, 0)
         self.mainbox.pack_start(self.overlay_right_content, True, True, 0)
 
-        if os.path.isfile(os.path.join(defs.HOMEMC, "collection.sqlite")) == False:
+        if not os.path.isfile(os.path.join(defs.HOMEMC, "collection.sqlite")):
             # we create the collection db
             functions.collection.create_db_coll()
 
@@ -128,7 +128,7 @@ class Collection:
         functions.db.disconnect_db(conn)
 
         # we must be sure to lock the access for the db of the collection
-        if defs.COLL_LOCK == False:
+        if not defs.COLL_LOCK:
             functions.various.lock_db(True, None)
 
         for card_to_add in cards_list:
@@ -208,13 +208,13 @@ class Collection:
                 # we update the collection store / treeview
                 i = 0
                 card_added = 0
-                if self.mainstore == None:
+                if self.mainstore is None:
                     conn_coll.commit()
                     defs.READ_COLL_FINISH = False
                     GLib.idle_add(
                         functions.collection.read_coll, self.right_content, self
                     )
-                    while defs.READ_COLL_FINISH != True:
+                    while not defs.READ_COLL_FINISH:
                         time.sleep(1 / 1000)
                     defs.READ_COLL_FINISH = False
                     cards = functions.various.prepare_cards_data_for_treeview([reponse])
@@ -328,7 +328,7 @@ class Collection:
 
         GLib.idle_add(functions.collection.set_coll_updated_pic, self)
 
-        if spinner_labels != None:
+        if spinner_labels is not None:
             GLib.idle_add(spinner_labels.destroy)
 
     def del_all_collection_decks(self):
@@ -354,8 +354,6 @@ class Collection:
         conn_coll.commit()
 
         # we need to update the treeview of the collection and of the search
-        new_id_db_to_bold = []
-        new_id_db_to_unbold = []
         # we need to find the ids_db of all current ids_coll
         ids_list = ""
         for id_ in cards_to_delete.values():

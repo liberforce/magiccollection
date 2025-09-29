@@ -52,7 +52,7 @@ def gen_card_viewer(cardid, box_card_viewer, object_origin, simple_search):
     for widget in box_card_viewer.get_children():
         box_card_viewer.remove(widget)
 
-    if cardid == None:
+    if cardid is None:
         # if cardid is None, we show a random mana picture. If possible, we choose a different one
         if len(defs.LIST_LANDS_SELECTED) == 5:
             defs.LIST_LANDS_SELECTED = []
@@ -876,7 +876,7 @@ def gen_card_viewer(cardid, box_card_viewer, object_origin, simple_search):
                 toughness,
                 basecolors,
             )
-            if more_popover == None:
+            if more_popover is None:
                 more_pic = Gtk.Image.new_from_file(
                     os.path.join(defs.PATH_MC, "images", "nothing.png")
                 )
@@ -1490,14 +1490,14 @@ def button_add_clicked(
         cards_to_add.append([card[0], condition, lang, foil, loaned, comment, nb])
     # print(cards_to_add)
     spinner_labels = None
-    if overlay_labels != None:
+    if overlay_labels is not None:
         spinner_labels = Gtk.Spinner()
         spinner_labels.show()
         overlay_labels.add_overlay(spinner_labels)
         spinner_labels.start()
 
     proxies_mode = 0
-    if radiobutton_proxies != None:
+    if radiobutton_proxies is not None:
         if radiobutton_proxies.get_active():
             proxies_mode = 1
 
@@ -1871,7 +1871,7 @@ def gen_manacost_popover(cmc_button, manacost):
         manacost_list = re.findall("\{(.*?)\}", manacost_list)
         for elm in manacost_list:
             elm = elm.lower().replace("/", "")
-            if elm.isnumeric() == False:
+            if not elm.isnumeric():
                 elm = "".join(sorted(elm))
             mana_pic = Gtk.Image()
             if elm == "1000000":

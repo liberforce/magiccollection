@@ -66,7 +66,7 @@ def download_symbols():
     """Downloads the symbols' editions."""
 
     if check_internet():
-        if os.path.isdir(os.path.join(defs.CACHEMCPIC, "icons")) == False:
+        if not os.path.isdir(os.path.join(defs.CACHEMCPIC, "icons")):
             os.mkdir(os.path.join(defs.CACHEMCPIC, "icons"))
             GLib.idle_add(
                 defs.MAINWINDOW.widget_overlay.get_child().set_markup,
@@ -100,14 +100,13 @@ def download_symbols():
         for edition in reponses:
             if edition[1] == "1":
                 if (
-                    os.path.isfile(
+                    not os.path.isfile(
                         os.path.join(
                             defs.CACHEMCPIC,
                             "icons",
                             valid_filename_os(edition[0]) + ".png",
                         )
                     )
-                    == False
                 ):
                     GLib.idle_add(
                         defs.MAINWINDOW.widget_overlay.get_child().set_markup,
@@ -198,16 +197,16 @@ def check_folders_config():
         defs.BACKUPMC,
     ]
     for folder in folders:
-        if (os.path.isdir(folder)) == False:
+        if not (os.path.isdir(folder)):
             os.mkdir(folder)
 
-    if os.path.isfile(os.path.join(defs.CONFIGMC, "config")) == False:
+    if not os.path.isfile(os.path.join(defs.CONFIGMC, "config")):
         configfile = open(os.path.join(defs.CONFIGMC, "config"), "a", encoding="UTF-8")
         for param, value in defs.VARCONFIGDEFAULT.items():
             configfile.write(param + " = " + value + "\n")
         configfile.close()
 
-    if os.path.isfile(os.path.join(defs.CACHEMCPIC, "cardback.png")) == False:
+    if not os.path.isfile(os.path.join(defs.CACHEMCPIC, "cardback.png")):
         if check_internet():
             try:
                 urllib.request.urlretrieve(
@@ -236,7 +235,7 @@ def message_dialog(message, typ):
         dialogdivers = Gtk.MessageDialog(
             None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, message
         )
-        if defs.MAINWINDOW != None:
+        if defs.MAINWINDOW is not None:
             dialogdivers.set_transient_for(defs.MAINWINDOW)
         dialogdivers.run()
         dialogdivers.destroy()
@@ -285,7 +284,7 @@ def downloadPicture(multiverseid, imageurl, name, edition_code):
         edition_code_f = valid_filename_os(edition_code)
 
         # we check if the folder exists
-        if os.path.isdir(os.path.join(defs.CACHEMCPIC, edition_code_f)) == False:
+        if not os.path.isdir(os.path.join(defs.CACHEMCPIC, edition_code_f)):
             os.makedirs(os.path.join(defs.CACHEMCPIC, edition_code_f))
 
         path = os.path.join(defs.CACHEMCPIC, edition_code_f, name_f + ".full.jpg")
@@ -297,7 +296,7 @@ def downloadPicture(multiverseid, imageurl, name, edition_code):
 
         if check_card_pic(edition_code, name):
             try:
-                pixbuf = gdkpixbuf_new_from_file(path)
+                gdkpixbuf_new_from_file(path)
                 return True
             except:
                 os.remove(path)
@@ -343,7 +342,7 @@ def edition_tcgname(code):
 
 
 def open_link_in_browser(widget, url, popover):
-    if popover != None:
+    if popover is not None:
         popover.hide()
     webbrowser.open_new_tab(url)
     return True
@@ -728,7 +727,7 @@ def compare_str_and_int(model, row1, row2, user_data):
     if value1 != "" and value2 == "":
         return -1
 
-    if isFloat(value1) == True and isFloat(value2) == True:
+    if isFloat(value1) and isFloat(value2):
         if float(value1) < float(value2):
             return 1
         elif float(value1) == float(value2):
@@ -736,7 +735,7 @@ def compare_str_and_int(model, row1, row2, user_data):
         else:
             return -1
 
-    if isFloat(value1) == False and isFloat(value2) == False:
+    if not isFloat(value1) and not isFloat(value2):
         if value1 < value2:
             return -1
         elif value1 == value2:
@@ -744,9 +743,9 @@ def compare_str_and_int(model, row1, row2, user_data):
         else:
             return 1
 
-    if isFloat(value1) == True and isFloat(value2) == False:
+    if isFloat(value1) and not isFloat(value2):
         return 1
-    if isFloat(value1) == False and isFloat(value2) == True:
+    if not isFloat(value1) and isFloat(value2):
         return -1
 
 
@@ -925,7 +924,7 @@ def create_window_search_name(request_response, current_object_view):
 
     def button_choose_click(button, select, current_object_view, window):
         model, treeiter = select.get_selected()
-        if treeiter != None:
+        if treeiter is not None:
             id_ = model[treeiter][0]
             current_object_view.load_card(id_, 1)
             window.destroy()
@@ -982,7 +981,7 @@ def create_window_search_name(request_response, current_object_view):
     # some work with columns
     columns_to_display = defs.as_columns.split(";")
 
-    as_columns_list = gen_treeview_columns(columns_to_display, tree_results)[0]
+    gen_treeview_columns(columns_to_display, tree_results)[0]
 
     select = tree_results.get_selection()
     scrolledwindow.add(tree_results)
@@ -1122,7 +1121,7 @@ def create_window_search_name(request_response, current_object_view):
     mainbox.pack_start(button_choose, False, False, 0)
     mainbox.show_all()
 
-    if defs.MAINWINDOW != None:
+    if defs.MAINWINDOW is not None:
         window.set_transient_for(defs.MAINWINDOW)
     return (window, nb, store_results)
 
@@ -1219,16 +1218,16 @@ def lock_db(lock_coll, lock_cards):
 
     """
 
-    if lock_cards == True:
+    if lock_cards:
         defs.AS_LOCK = True
-    elif lock_cards == False:
+    elif not lock_cards:
         defs.AS_LOCK = False
 
-    if lock_coll == True:
+    if lock_coll:
         defs.COLL_LOCK = True
-    elif lock_coll == False:
+    elif not lock_coll:
         defs.COLL_LOCK = False
-        if defs.BUTTON_COLL_LOCK != None:
+        if defs.BUTTON_COLL_LOCK is not None:
             GLib.idle_add(
                 defs.BUTTON_COLL_LOCK.set_label, defs.STRINGS["add_button_validate"]
             )
@@ -1328,14 +1327,14 @@ def gdkpixbuf_new_from_file_at_size(path, width, height):
 def clear_gui_del():
     """Erase many elements of the interface."""
 
-    if defs.MAINWINDOW.advancedsearch.mainstore != None:
+    if defs.MAINWINDOW.advancedsearch.mainstore is not None:
         for line in defs.MAINWINDOW.advancedsearch.mainstore:
             if line[12] == 700:
                 line[12] = 400
-        if defs.MAINWINDOW.advancedsearch.mainselect != None:
+        if defs.MAINWINDOW.advancedsearch.mainselect is not None:
             defs.MAINWINDOW.advancedsearch.mainselect.emit("changed")
 
-    if defs.MAINWINDOW.decks.mainstore != None:
+    if defs.MAINWINDOW.decks.mainstore is not None:
         defs.MAINWINDOW.decks.label_nb_cards.set_text(
             defs.STRINGS["nb_cards_in_deck"].replace("%%%", "0")
         )
@@ -1356,7 +1355,7 @@ def clear_gui_del():
             defs.MAINWINDOW.collection.button_back_coll.emit("clicked")
     except:
         pass
-    if defs.MAINWINDOW.collection.mainstore != None:
+    if defs.MAINWINDOW.collection.mainstore is not None:
         defs.MAINWINDOW.collection.mainselect.set_mode(Gtk.SelectionMode.NONE)
         defs.MAINWINDOW.collection.mainstore.clear()
         defs.MAINWINDOW.collection.mainselect.set_mode(Gtk.SelectionMode.MULTIPLE)
@@ -1365,13 +1364,13 @@ def clear_gui_del():
 def show_tips_window(mc):
     """Generates and displays the tips' window."""
 
-    if mc.tips == None:
+    if mc.tips is None:
         tips_dialog = Gtk.Dialog()
         mc.tips = tips_dialog
         tips_dialog.set_default_size(750, 350)
         tips_dialog.set_title(defs.STRINGS["tips"])
         tips_dialog.set_icon_name("magic_collection")
-        if defs.MAINWINDOW != None:
+        if defs.MAINWINDOW is not None:
             tips_dialog.set_transient_for(defs.MAINWINDOW)
             tips_dialog.set_modal(True)
         notebook = Gtk.Notebook()
@@ -1455,11 +1454,11 @@ def show_shortcuts_window(mc):
         shortwin.destroy()
         return False
 
-    if mc.shortcutswindow == None:
+    if mc.shortcutswindow is None:
         shortwin = Gtk.ShortcutsWindow()
         mc.shortcutswindow = shortwin
         shortwin.set_icon_name("magic_collection")
-        if defs.MAINWINDOW != None:
+        if defs.MAINWINDOW is not None:
             shortwin.set_transient_for(defs.MAINWINDOW)
             shortwin.set_modal(True)
         shortwin.connect("delete-event", delete_shortwin, mc)

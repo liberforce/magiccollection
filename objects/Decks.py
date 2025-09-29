@@ -82,7 +82,7 @@ class Decks:
 
         functions.decks.write_new_deck_to_db(name_new_deck)
 
-        if self.store_list_decks == None:
+        if self.store_list_decks is None:
             functions.decks.gen_decks_display(self, self.right_content)
         else:
             self.gen_list_decks(name_new_deck)
@@ -118,7 +118,7 @@ class Decks:
         functions.collection.disconnect_db(conn_coll)
         functions.various.lock_db(False, None)
 
-        if self.store_list_decks == None:
+        if self.store_list_decks is None:
             functions.decks.gen_decks_display(self, self.right_content)
         else:
             for i, elm in enumerate(self.store_list_decks):
@@ -142,7 +142,7 @@ class Decks:
 
         if self.displaying_deck == 0:
             model, treeiter = selection.get_selected()
-            if treeiter != None:
+            if treeiter is not None:
                 self.displaying_deck = 1
                 self.button_change_comm_deck.set_sensitive(True)
                 button_delete_deck.set_sensitive(True)
@@ -351,7 +351,7 @@ class Decks:
             current_deck_name = ""
         if current_deck_name != "":
             if current_deck_name == deck_name:
-                if self.mainstore != None:
+                if self.mainstore is not None:
                     for i, card_data_deck in enumerate(self.mainstore):
                         for data in ids_coll_dict.values():
                             card_in_coll_dict, side = data
@@ -752,7 +752,7 @@ class Decks:
                                     card_data_deck[16] == 0
                                     and card_data_deck[17] == 1
                                     and card_data_deck[0] == id_db
-                                    and a_row_already_exists == True
+                                    and a_row_already_exists
                                 ):
                                     card_data_deck[15] = (
                                         int(card_data_deck[15]) + quantity
@@ -841,7 +841,7 @@ class Decks:
                                     card_data_deck[16] == 0
                                     and card_data_deck[17] == 0
                                     and card_data_deck[0] == id_db
-                                    and a_row_already_exists == True
+                                    and a_row_already_exists
                                 ):
                                     card_data_deck[15] = (
                                         int(card_data_deck[15]) + quantity
@@ -974,14 +974,14 @@ class Decks:
                     tmp_id_dict[id_card] = in_deck
 
         coll_object = defs.MAINWINDOW.collection
-        if coll_object.mainstore != None:
+        if coll_object.mainstore is not None:
             for i, row in enumerate(coll_object.mainstore):
                 if row[0] in tmp_id_dict.keys():
                     if tmp_id_dict[row[0]]:
                         coll_object.mainstore[i][13] = Pango.Style.ITALIC
                     else:
                         coll_object.mainstore[i][13] = Pango.Style.NORMAL
-        if coll_object.searchstore != None:
+        if coll_object.searchstore is not None:
             if coll_object.tree_coll.get_model() == coll_object.searchstore:
                 for i, row in enumerate(coll_object.searchstore):
                     if row[0] in tmp_id_dict.keys():
@@ -993,7 +993,7 @@ class Decks:
     def update_nb_decks(self):
         """Update the label which displays the number of decks."""
 
-        if self.label_nb_decks != None:
+        if self.label_nb_decks is not None:
             conn_coll, c_coll = functions.collection.connect_db()
             c_coll.execute("""SELECT COUNT(*) FROM decks""")
             count_nb = c_coll.fetchone()[0]
@@ -1008,7 +1008,7 @@ class Decks:
     def gen_list_decks(self, deck_to_select):
         """Generates the list of the decks."""
 
-        if self.store_list_decks != None:
+        if self.store_list_decks is not None:
             self.displaying_deck = 1
             self.store_list_decks.clear()
             conn_coll, c_coll = functions.collection.connect_db()
@@ -1023,8 +1023,8 @@ class Decks:
             self.update_nb_decks()
             self.displaying_deck = 0
 
-            if self.select_list_decks != None:
-                if deck_to_select == None:
+            if self.select_list_decks is not None:
+                if deck_to_select is None:
                     pass
                 else:
                     for i, decks_data in enumerate(self.store_list_decks):

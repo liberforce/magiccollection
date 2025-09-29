@@ -188,7 +188,7 @@ def import_data():
                 functions.decks.gen_decks_display(
                     defs.MAINWINDOW.decks, defs.MAINWINDOW.decks.right_content
                 )
-                if defs.MAINWINDOW.advancedsearch.mainstore != None:
+                if defs.MAINWINDOW.advancedsearch.mainstore is not None:
                     defs.MAINWINDOW.advancedsearch.mainstore.clear()
                 functions.various.message_dialog(defs.STRINGS["import_success"], 0)
 
@@ -352,7 +352,7 @@ def cards_finder_oldcollection(Collection):
                 buttons=(Gtk.STOCK_OK, Gtk.ResponseType.OK),
             )
             dialog.set_default_size(600, 400)
-            if defs.MAINWINDOW != None:
+            if defs.MAINWINDOW is not None:
                 dialog.set_transient_for(defs.MAINWINDOW)
                 dialog.set_modal(True)
             label_1 = Gtk.Label(defs.STRINGS["import_oldformat_finish"])
@@ -433,7 +433,7 @@ def cards_finder_oldcollection(Collection):
                         # we found the card !
                         id_card = responses[0][0]
                     cards_found[tmp_key] = id_card
-                if id_card == None:
+                if id_card is None:
                     cards_not_found.append([card_name, ex_code, id_data])
                 else:
                     # we can write this card to the collection
@@ -528,11 +528,11 @@ def read_oldcollection(filepath, Decks):
                 line_collection = line.rstrip("\n\r").split(";;;")
                 del line_collection[-1]
 
-                nb_ex = int(line_collection[2])
+                int(line_collection[2])
                 card_name = line_collection[0]
                 card_ex = line_collection[1]
                 card_name, card_ex = card_validator_oldformat(card_name, card_ex)
-                if card_name == None:
+                if card_name is None:
                     pass
                 else:
                     # variant ?
@@ -590,7 +590,7 @@ def read_oldcollection(filepath, Decks):
                                     ]["list_ids"]
                                 except:
                                     pass
-                                if tmp_list_ids != None:
+                                if tmp_list_ids is not None:
                                     if idvar_old in tmp_list_ids:
                                         deck = tmp_deck_name
 
@@ -633,7 +633,7 @@ def read_olddeck(filepath):
                 card_name, ed_code, list_ids = elm.rstrip("\n\r").split(";;;")
                 list_ids = list_ids.split("|")
                 card_name, ed_code = card_validator_oldformat(card_name, ed_code)
-                if card_name != None:
+                if card_name is not None:
                     try:
                         deck_dict["cards"][card_name]
                     except KeyError:
@@ -654,7 +654,7 @@ def card_validator_oldformat(card_name, card_ex):
             nbvariant = card_name[-2]
             if nbvariant == "0":
                 nbvariant = "10"
-    if nbvariant != None:
+    if nbvariant is not None:
         card_name = card_name.replace(" (" + nbvariant + ")", "")
 
     card_name = card_name.replace("AE", "Æ").replace(" [Vanguard]", "")
@@ -734,6 +734,6 @@ def card_validator_oldformat(card_name, card_ex):
             card_name = None
             card_ex = None
 
-    if nbvariant != None:
+    if nbvariant is not None:
         card_name = card_name + " (" + nbvariant + ")"
     return (card_name, card_ex)
