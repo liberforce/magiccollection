@@ -21,7 +21,6 @@
 # AdvancedSearch class for Magic Collection
 
 import os
-import sys
 import threading
 import time
 
@@ -37,7 +36,6 @@ import functions.config
 import functions.db
 
 # imports objects
-import objects.mc
 
 
 class AdvancedSearch:

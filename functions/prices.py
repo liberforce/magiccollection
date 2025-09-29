@@ -27,8 +27,6 @@ import threading
 import urllib.error
 import urllib.parse
 import urllib.request
-from distutils.version import StrictVersion
-from socket import timeout
 
 from gi.repository import GLib, Gtk
 

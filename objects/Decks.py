@@ -20,10 +20,8 @@
 
 # Decks class for Magic Collection
 
-import os
-import sys
 
-from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
+from gi.repository import GLib, Gtk, Pango
 
 # imports def.py
 import defs
@@ -35,7 +33,6 @@ import functions.db
 import functions.decks
 
 # imports objects
-import objects.mc
 
 
 class Decks:

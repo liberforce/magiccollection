@@ -22,7 +22,6 @@
 
 import os
 import shutil
-import sys
 from datetime import date
 
 from gi.repository import GLib, Gtk, Pango

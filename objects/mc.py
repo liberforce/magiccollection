@@ -21,10 +21,9 @@
 # Main Items classes for Magic Collection
 
 import os
-import sys
 import threading
 
-from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
+from gi.repository import Gdk, Gio, GLib, Gtk
 
 # imports def.py
 import defs

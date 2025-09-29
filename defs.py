@@ -24,7 +24,7 @@ import locale
 import os
 import platform
 
-from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
+from gi.repository import Gtk, GLib, Gdk
 
 # translations - each translation must be loaded here
 import translations.en

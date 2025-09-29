@@ -24,10 +24,9 @@ import os
 import random
 import re
 import threading
-import time
 
 import cairo
-from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango
+from gi.repository import Gdk, Gio, GLib, Gtk, Pango
 
 # imports def.py
 import defs
@@ -37,7 +36,6 @@ import functions.prices
 import functions.various
 
 # imports objects
-import objects.mc
 
 
 def gen_card_viewer(cardid, box_card_viewer, object_origin, simple_search):

@@ -21,11 +21,10 @@
 # Collection class for Magic Collection
 
 import os
-import sys
 import time
 from datetime import date
 
-from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
+from gi.repository import GLib, Gtk, Pango
 
 # imports def.py
 import defs
@@ -37,7 +36,6 @@ import functions.config
 import functions.db
 
 # imports objects
-import objects.mc
 
 
 class Collection:

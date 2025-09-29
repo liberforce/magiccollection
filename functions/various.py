@@ -29,8 +29,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import webbrowser
-from math import pi
-from socket import timeout
 
 from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
 
